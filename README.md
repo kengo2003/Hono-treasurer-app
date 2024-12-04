@@ -1,4 +1,4 @@
-# hono-app
+# Hono🔥 を使用した会計アプリ
 
 To install dependencies:
 
@@ -12,4 +12,11 @@ To run:
 bun run index.ts
 ```
 
-This project was created using `bun init` in bun v1.1.21. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## 使用技術
+
+- バックエンド：Hono + Bun
+- フロントエンド：Vite + React
+- ORM：Drizzle
+- 認証：Kinde
+- デプロイ：fly.io
+- バリデーション：zod
