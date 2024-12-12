@@ -8,9 +8,9 @@ const expenseSchema = z.object({
   amount: z.number().int().positive(),
 });
 
-type Expense = z.infer<typeof expenseSchema>
+type Expense = z.infer<typeof expenseSchema>;
 
-const createPostSchema = expenseSchema.omit({id: true})
+const createPostSchema = expenseSchema.omit({ id: true });
 
 const fakeExpenses: Expense[] = [
   { id: 1, title: "Groceries", amount: 50 },
@@ -29,7 +29,13 @@ export const expensesRoute = new Hono()
     c.status(201);
     return c.json(expense);
   })
-
+  .get("/total-spent", (c) => {
+    const total = fakeExpenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+    return c.json({ total });
+  })
   .get("/:id{[0-9]+}", (c) => {
     const id = Number.parseInt(c.req.param("id"));
     const expense = fakeExpenses.find((expense) => expense.id === id);
