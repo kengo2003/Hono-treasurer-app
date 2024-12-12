@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,6 +10,10 @@ import {
 
 function App() {
   const [totalSpent, setTotalSpent] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/expenses/total-spent");
+  }, []);
 
   return (
     <Card className="w-[350px] m-auto">
