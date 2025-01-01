@@ -30,13 +30,24 @@ export const expensesRoute = new Hono()
     return c.json(expense);
   })
   .get("/total-spent", async (c) => {
-    await new Promise((r) => setTimeout(r, 2000));
-    const total = fakeExpenses.reduce(
-      (acc, expense) => acc + expense.amount,
-      0
-    );
-    return c.json({ total });
+    try {
+      await new Promise((r) => setTimeout(r, 2000));
+      const total = fakeExpenses.reduce((acc, expense) => {
+        console.log("Processing expense:", expense);
+        return acc + expense.amount;
+      }, 0);
+      console.log("Total spent calculated:", total);
+      return c.json({ total });
+    } catch (error) {
+      console.error("Error in /total-spent:", error);
+      c.status(500);
+      return c.json({
+        message: "Internal Server Error",
+        error: (error as any).message,
+      });
+    }
   })
+
   .get("/:id{[0-9]+}", (c) => {
     const id = Number.parseInt(c.req.param("id"));
     const expense = fakeExpenses.find((expense) => expense.id === id);
