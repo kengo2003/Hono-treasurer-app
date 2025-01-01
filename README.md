@@ -18,5 +18,4 @@ bun run index.ts
 - フロントエンド：Vite + React
 - ORM：Drizzle
 - 認証：Kinde
-- デプロイ：fly.io
 - バリデーション：zod
